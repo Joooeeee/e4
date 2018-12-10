@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.dev.js" charset="utf-8"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+  </head>
+  <body>
+    <h1 id='data'></h1>
+    <script type="text/javascript">
+      var io = io();
+      function getRandomInt(max) {
+        return Math.random() * Math.floor(max);
+      }
+      var databuf = []
+      setInterval(()=>{
+        databuf.unshift(getRandomInt(1));
+        if(databuf.length > 20)
+          databuf.pop();
+        io.emit('data',{type:'GSR',data:databuf[0]})
+        $('#data').html(JSON.stringify(databuf))
+      },50)
+
+    </script>
+  </body>
+</html>
